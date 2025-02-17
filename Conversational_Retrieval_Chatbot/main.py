@@ -7,12 +7,19 @@ app = FastAPI()
 @app.post("/upload_file")
 
 async def upload_file(file: UploadFile = File(...)):
-    embeddings= create_store_embedding(file)
-    return embeddings
+    try:
+        embeddings = create_store_embedding(file)
+        return embeddings
+    except Exception as e:
+        return {"error": str(e)}
+    
 
 
 @app.get("/chat")
 def chat(usre_question: str):
-    response = generate_response(usre_question)
-    return response
-    
+    try:
+        response = generate_response(usre_question)
+        return {"response": response}
+    except Exception as e:
+        return {"error": str(e)}
+   

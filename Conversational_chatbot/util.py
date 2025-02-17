@@ -51,7 +51,7 @@ def get_chat_history():
         return history
     except Exception as e:
         logging.error("Error fetching chat history: %s", e)
-        return ""
+        raise Exception("Failed to fetch chat history.",e)
     
 
 
@@ -73,6 +73,7 @@ def save_chat_history(question, response):
         conn.close()
     except Exception as e:
         logging.error("Error saving chat history: %s", e)
+        raise Exception("Failed to save chat history.",e)
 
 # Get AI response with conversation context
 def get_response(question):
@@ -96,7 +97,7 @@ def get_response(question):
             return response
         except Exception as e:
             logging.error("Error occurred: %s", e)
-            return "An error occurred. Please try again later."
+            raise Exception ("Failed to generate response.",e)
     else:
         logging.warning("No question provided.")
         return "Please ask a question."

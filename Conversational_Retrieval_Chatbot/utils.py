@@ -72,6 +72,7 @@ def save_chat_history(question, response):
         conn.close()
     except Exception as e:
         logging.error("Error saving chat history: %s", e)
+        raise Exception("Failed to save chat history.",e)
 
 
 # ... rest of your code ...
@@ -91,7 +92,7 @@ def load_file(file):
         return pages
     except Exception as e:
         logging.error(f"Error loading file: {str(e)}")
-        raise
+        raise Exception("Failed to load file.",e)
 
 def split_text(file):
     """Split the text of a PDF file into manageable chunks."""
@@ -102,7 +103,7 @@ def split_text(file):
         return chunks
     except Exception as e:
         logging.error(f"Error splitting text: {str(e)}")
-        raise
+        raise Exception("Failed to split text.",e)
 
 def create_store_embedding(file, index_name: str):
     """Create a Pinecone index and store embeddings of the document chunks."""
@@ -122,7 +123,7 @@ def create_store_embedding(file, index_name: str):
         return "The data is stored successfully."
     except Exception as e:
         logging.error(f"Error storing embedding: {str(e)}")
-        raise
+        raise Exception("Failed to store embedding.",e)
 
 def generate_response(question):
     """Retrieve context from Pinecone and generate a response using an LLM."""
@@ -166,7 +167,7 @@ def generate_response(question):
 
     except Exception as e:
         logging.error(f"Error in generate_response: {str(e)}")
-        raise
+        raise Exception("Failed to generate response.",e)
 
 # if __name__ == "__main__":
 #     while True:

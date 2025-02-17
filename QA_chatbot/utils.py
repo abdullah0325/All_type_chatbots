@@ -33,7 +33,7 @@ def get_response(question):
             return response
         except Exception as e:
             logging.error("Error occurred: %s", e)
-            raise e
+            raise Exception ("Failed to generate response.",e)
     else:
         logging.warning("No question provided.")
         return "Please ask a question."

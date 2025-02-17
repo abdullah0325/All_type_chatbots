@@ -5,6 +5,8 @@ app = FastAPI()
 
 @app.get("/")
 def chat(prompt):
-    return get_response(prompt)
-
+    try:
+        return get_response(prompt)
+    except Exception as e:
+        return {"error": str(e)}
 
